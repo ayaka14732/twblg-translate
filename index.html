@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>華語-臺語機械翻譯</title>
+  <meta name="author" content="三日月綾香" />
+  <meta name="keywords" content="臺灣閩南語, 台語, 翻譯, 翻譯器" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/forms-nr-min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/buttons-min.css" />
+<script>
+function handleSubmit() {
+  document.getElementById('loading').classList.remove('hidden');
+  var payload = document.getElementById('inputArea').value;
+  fetch('https://ayaka-apps.shn.hk/twblg-translate/?' + new URLSearchParams({
+    s: payload,
+  }))
+  .then((response) => response.json())
+  .then((data) => {
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('outputArea').innerText = data.join('\n');
+  })
+  .catch((error) => console.error('Error:', error));
+}
+window.addEventListener('DOMContentLoaded', function() {
+  var _h = '&#x73;&#x68;&#x6E;&#x2E;&#x68;&#x6B;';
+  var _a = '&#x40;&#x6D;&#x61;&#x69;&#x6C;&#x2E;';
+  var _n = '&#x61;&#x79;&#x61;&#x6b;&#x61;';
+  var _e = _n + _a + _h;
+  _a = document.createElement('span');
+  _a.innerHTML = _e;
+  document.getElementById('gd').href = 'm' + 'a' + 'ilto' + ':' + _a.innerText;
+});
+</script>
+<!-- CSS rules are mainly taken from http://jgrammar.life.coocan.jp/ja/index.htm -->
+<style>
+body {
+  background-color: #e0ffe0;
+  color: black;
+  font-family: sans-serif, sans-serif;
+  line-height: 1.6;
+}
+h1 {
+  background-color: aqua;
+  color: navy;
+}
+form {
+  background-color: #e0ffff;
+  color: inherit;
+}
+h2 {
+  background-color: navy;
+  color: white;
+}
+textarea {
+  display: block;
+  font-size: 125%;
+}
+output {
+  display: block;
+  font-size: x-large;
+}
+a:link {
+  background: inherit;
+  color: blue;
+}
+textarea {
+  width: 400px;
+  max-width: calc(100vw - 1.25em);
+}
+.wrapper {
+  background: #ffffe0;
+  border: 1px solid black;
+  color: inherit;
+}
+.wrapper2 > * {
+  padding: 0 0.5rem;
+}
+.align-right {
+  text-align: right;
+}
+.hidden {
+  color: red;
+  display: none;
+}
+.pure-button {
+  padding: 0.3em 1em;
+}
+</style>
+</head>
+<body>
+  <h1>華語-臺語機械翻譯</h1>
+  <p class="align-right">作者：<a id="gd" href="mailto:account@example.org">三日月 綾香</a></p>
+  <hr/>
+  <div class="wrapper">
+    <form class="pure-form" onsubmit="handleSubmit(); return false">
+      <textarea class="form-control pure-input-1-2" id="inputArea" rows="5">明天不用上班，可以安心入睡。</textarea>
+      <p><input class="btn btn-primary pure-button" type="submit" value="翻譯" /> <span id="loading" class="hidden">載入中…</span></p>
+    </form>
+    <div class="wrapper2">
+      <h2>翻譯結果</h2>
+      <output id="outputArea">
+        明仔載免上班，會使穩心仔困。<br />
+        明仔載免上班，會使安心困。<br />
+        明仔載免上班，會使安心入眠。
+      </output>
+      <h2>Web API 参照</h2>
+      <p>GET 要求 <code>https://ayaka-apps.shn.hk/twblg-translate/?s=目標字串</code>，回傳 JSON 格式的翻譯結果。本 Web API 基於<a href="https://github.com/ayaka14732/bart-base-jax/tree/twblg">華語-臺語機械翻譯</a>，頁面原始碼公開於 <a href="https://github.com/ayaka14732/twblg-translate">GitHub</a>。</p>
+    </div>
+  </div>
+  <hr/>
+  <ul>
+    <li>2022/09/16 初版</li>
+  </ul>
+  <hr/>
+</body>
+</html>
